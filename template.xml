@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="MVPAutoActivity"
+    minApi="9"
+    minBuildApi="14"
+    description="一键创建MVP架构的所需要的M、P、V文件">
+
+    <category value="Activity" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="pageName"
+        name="Page Name"
+        type="string"
+        constraints="unique|nonempty"
+        default="Main"
+        help="填写页面名称，如填写Main会自动生成MainActivity,MainPresenter,MainModel文件"
+        />
+    <parameter
+        id="packageName"
+        name="Root Package Name"
+        type="string"
+        constraints="package"
+        default="net.ishandian.app"
+        help="填写项目的包名"
+        />
+    
+    <parameter
+        id="activityLayoutName"
+        name="Activtiy Layout Name"
+        type="string"
+        constraints="layout|nonempty"
+        suggest="${activityToLayout(pageName)}"
+        default="activity_main"
+        help="填写创建的Activity的布局名称，若布局已经创建就直接填写此包名，没有创建，勾选下面选项"
+        />
+    <parameter
+        id="generateActivityLayout"
+        name="Generate Activity Layout"
+        type="boolean"
+        default="true"
+        help="是否生成Activity的布局？若勾选，则用上面的布局作为Activity的布局"
+        />
+    <parameter
+        id="activityPackageName"
+        name="Activity Package Name"
+        type="string"
+        constraints="package"
+        suggest="${packageName}.${pageName}.view"
+        help="Activity 将被输出到此包下，请认真核实此包名是否是你需要输出的目标包名"
+        />
+    
+    <parameter
+        id="contractPackageName"
+        name="Contract Package Name"
+        type="string"
+        constraints="package"
+        suggest="${packageName}.${pageName}.contract"
+        help="Contract 将被输出到此包下"
+        />
+    
+    <parameter
+        id="presenterPackageName"
+        name="Presenter Package Name"
+        type="string"
+        constraints="package"
+        suggest="${packageName}.${pageName}.presenter"
+        help="Presenter 将被输出到此包下"
+        />  
+
+
+    <parameter
+        id="modelPackageName"
+        name="Model Package Name"
+        type="string"
+        constraints="package"
+        suggest="${packageName}.${pageName}.model"
+        help="Model 将被输出到此包下"
+        />  
+        
+    <parameter
+        id="isLauncher"
+        name="Launcher Activity"
+        type="boolean"
+        default="false"
+        help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
+
+    <parameter
+        id="backwardsCompatibility"
+        name="Backwards Compatibility (AppCompat)"
+        type="boolean"
+        default="true"
+        help="If false, this activity base class will be Activity instead of AppCompatActivity" />
+    
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
